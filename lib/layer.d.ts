@@ -52,5 +52,6 @@ export default class Layer extends React.Component<Props> {
     componentWillUnmount(): void;
     componentWillReceiveProps(props: Props): void;
     getChildren: () => JSX.Element[];
+    componentDidUpdate(prevProps: Props): void;
     render(): null;
 }

@@ -293,6 +293,21 @@ export default class Layer extends React.Component<Props> {
     return [children] as JSX.Element[];
   };
 
+  public componentDidUpdate(prevProps: Props) {
+    const {map} = this.context;
+    const {id} = this.props;
+
+    // since there is no method to change a layers source have to remove and
+    // re add a layer to change its source if the prop sourceId changes
+    if (prevProps.sourceId !== this.props.sourceId) {
+      if (map.getLayer(id)) {
+        map.removeLayer(id);
+      }
+      this.initialize();
+      this.forceUpdate();
+    }
+  }
+
   public render() {
     const { map } = this.context;
     const { sourceId, draggedChildren } = this.props;
