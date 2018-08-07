@@ -65,6 +65,7 @@ export interface Props {
   scrollZoom?: boolean;
   keyboard?: boolean;
   boxZoom?: boolean;
+  showNavigationControls?: boolean;
 }
 
 export interface State {
@@ -102,6 +103,8 @@ export interface FactoryParameters {
   bearingSnap?: number;
   injectCss?: boolean;
   transformRequest?: RequestTransformFunction;
+  showCompass?: boolean;
+  showNavigationControls?: boolean;
 }
 
 // Satisfy typescript pitfall with defaultProps
@@ -118,6 +121,7 @@ declare global {
     export interface MapboxOptions {
       failIfMajorPerformanceCaveat?: boolean;
       transformRequest?: RequestTransformFunction;
+      showCompass?: boolean;
     }
   }
 }
@@ -146,7 +150,9 @@ const ReactMapboxFactory = ({
   classes,
   bearingSnap = 7,
   injectCss = true,
-  transformRequest
+  transformRequest,
+  showCompass,
+  showNavigationControls
 }: FactoryParameters) => {
   if (injectCss) {
     injectCSS(window);
@@ -198,7 +204,8 @@ const ReactMapboxFactory = ({
         fitBounds,
         fitBoundsOptions,
         bearing,
-        maxBounds
+        maxBounds,
+        showNavigationControls
       } = this.props;
 
       // tslint:disable-next-line:no-any
@@ -243,7 +250,8 @@ const ReactMapboxFactory = ({
         classes,
         bearingSnap,
         failIfMajorPerformanceCaveat,
-        transformRequest
+        transformRequest,
+        showCompass
       };
 
       if (bearing) {
@@ -271,6 +279,10 @@ const ReactMapboxFactory = ({
 
       if (fitBounds) {
         map.fitBounds(fitBounds, fitBoundsOptions);
+      }
+
+      if (showNavigationControls) {
+        map.addControl(new MapboxGl.NavigationControl());
       }
 
       // tslint:disable-next-line:no-any

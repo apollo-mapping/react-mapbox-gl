@@ -52,6 +52,7 @@ export interface Props {
     scrollZoom?: boolean;
     keyboard?: boolean;
     boxZoom?: boolean;
+    showNavigationControls?: boolean;
 }
 export interface State {
     map?: MapboxGl.Map;
@@ -83,16 +84,19 @@ export interface FactoryParameters {
     bearingSnap?: number;
     injectCss?: boolean;
     transformRequest?: RequestTransformFunction;
+    showCompass?: boolean;
+    showNavigationControls?: boolean;
 }
 declare global  {
     namespace mapboxgl {
         interface MapboxOptions {
             failIfMajorPerformanceCaveat?: boolean;
             transformRequest?: RequestTransformFunction;
+            showCompass?: boolean;
         }
     }
 }
-declare const ReactMapboxFactory: ({ accessToken, apiUrl, minZoom, maxZoom, hash, preserveDrawingBuffer, scrollZoom, interactive, dragRotate, attributionControl, logoPosition, renderWorldCopies, trackResize, touchZoomRotate, doubleClickZoom, keyboard, dragPan, boxZoom, refreshExpiredTiles, failIfMajorPerformanceCaveat, classes, bearingSnap, injectCss, transformRequest }: FactoryParameters) => {
+declare const ReactMapboxFactory: ({ accessToken, apiUrl, minZoom, maxZoom, hash, preserveDrawingBuffer, scrollZoom, interactive, dragRotate, attributionControl, logoPosition, renderWorldCopies, trackResize, touchZoomRotate, doubleClickZoom, keyboard, dragPan, boxZoom, refreshExpiredTiles, failIfMajorPerformanceCaveat, classes, bearingSnap, injectCss, transformRequest, showCompass, showNavigationControls }: FactoryParameters) => {
     new (props: Props & Events, context?: any): {
         state: {
             map: undefined;
