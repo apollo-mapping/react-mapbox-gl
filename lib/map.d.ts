@@ -103,6 +103,7 @@ declare const ReactMapboxFactory: ({ accessToken, apiUrl, minZoom, maxZoom, hash
             ready: boolean;
         };
         listeners: Listeners;
+        navigationControl: MapboxGl.NavigationControl;
         _isMounted: boolean;
         getChildContext: () => {
             map: undefined;

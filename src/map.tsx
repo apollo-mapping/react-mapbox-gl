@@ -179,6 +179,7 @@ const ReactMapboxFactory = ({
     };
 
     public listeners: Listeners = {};
+    public navigationControl: MapboxGl.NavigationControl = new MapboxGl.NavigationControl();
 
     // tslint:disable-next-line:variable-name
     public _isMounted = true;
@@ -282,7 +283,7 @@ const ReactMapboxFactory = ({
       }
 
       if (showNavigationControls) {
-        map.addControl(new MapboxGl.NavigationControl());
+        map.addControl(this.navigationControl);
       }
 
       // tslint:disable-next-line:no-any
@@ -391,9 +392,18 @@ const ReactMapboxFactory = ({
       }
 
       const handlerNames = ['doubleClickZoom', 'dragPan', 'dragRotate',
-        'touchZoomRotate', 'scrollZoom', 'boxZoom', 'keyboard']
+        'touchZoomRotate', 'scrollZoom', 'boxZoom', 'keyboard'];
       for (const name of handlerNames) {
         this.toggleInteractionHandler(name, nextProps)
+      }
+
+      if (this.props.showNavigationControls != nextProps.showNavigationControls) {
+        if (nextProps.showNavigationControls) {
+          map.addControl(this.navigationControl);
+        } else {
+          // @ts-ignore
+          map.removeControl(this.navigationControl);
+        }
       }
 
       return null;
