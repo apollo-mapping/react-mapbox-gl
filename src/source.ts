@@ -132,8 +132,14 @@ export default class Source extends React.Component<Props> {
 
       if (hasNewTilesSource) {
         const layers = this.removeSource();
-        if (!map.getSource(this.id))
-          map.addSource(this.id, props.tileJsonSource);
+        if (!map.getSource(this.id)) {
+          if (map.loaded())
+            map.addSource(this.id, props.tileJsonSource);
+          else
+            map.on('load', (evt: React.SyntheticEvent<any>) => {
+              map.addSource(this.id, props.tileJsonSource);
+            });
+        }
 
         layers.forEach(layer => map.addLayer(layer, layer.before));
       }
