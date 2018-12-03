@@ -384,7 +384,7 @@ const ReactMapboxFactory = ({
           center: didCenterUpdate ? nextProps.center : center,
           bearing: didBearingUpdate ? nextProps.bearing : bearing,
           pitch: didPitchUpdate ? nextProps.pitch : pitch
-        });
+        }, {isReactUpdate: true});
       }
 
       if (!isEqual(this.props.style, nextProps.style)) {
